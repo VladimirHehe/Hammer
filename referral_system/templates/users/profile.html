@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <p>Phone Number: {{ user.phone_number }}</p>
+    <p>Invite Code: {{ user.invite_code }}</p>
+    <p>Activated Invite Code: {{ user.activated_invite_code }}</p>
+
+    {% if not user.activated_invite_code %}
+    <h2>Activate Invite Code</h2>
+    <form method="POST" action="{% url 'user-activate-invite' user.pk %}">
+        {% csrf_token %}
+        <label for="invite_code">Enter Invite Code:</label>
+        <input type="text" id="invite_code" name="invite_code" required>
+        <button type="submit">Activate</button>
+    </form>
+    {% endif %}
+
+    <h2>Users who used your invite code:</h2>
+    <ul>
+        {% for referred_user in referred_users %}
+            <li>{{ referred_user.phone_number }}</li>
+        {% empty %}
+            <li>No users have used your invite code yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

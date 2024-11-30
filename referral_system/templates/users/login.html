@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="login-form">
+        <input type="text" name="phone_number" placeholder="Phone Number" required>
+        <button type="submit">Send Verification Code</button>
+    </form>
+    <div id="message"></div>
+
+    <script>
+        $('#login-form').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/users/login/',
+                data: $(this).serialize(),
+                success: function(response) {
+                    window.location.href = '/users/verify/';
+                },
+                error: function(xhr) {
+                    $('#message').text(xhr.responseJSON.error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

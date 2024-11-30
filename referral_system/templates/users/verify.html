@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Verify Your Phone Number</h1>
+    <form id="verify-form">
+        <input type="text" name="code" placeholder="Verification Code" required>
+        <button type="submit">Verify</button>
+    </form>
+    <div id="message"></div>
+
+    <script>
+        $('#verify-form').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/users/verify/',
+                data: $(this).serialize(),
+                success: function(response) {
+                    window.location.href = '/users/profile/' + response.user_id + '/';
+                },
+                error: function(xhr) {
+                    $('#message').text(xhr.responseJSON.error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
