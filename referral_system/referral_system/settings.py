@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-!0oy=w517onl#@v*4z_(yhb(q7#=kg5$u^yq9fa%hk3xbp!1*&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*pip3 freeze > requirements.txt']
+ALLOWED_HOSTS = ['kokos1.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
